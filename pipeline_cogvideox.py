@@ -27,8 +27,6 @@ from diffusers.utils.torch_utils import randn_tensor
 from diffusers.video_processor import VideoProcessor
 from diffusers.models.embeddings import get_3d_rotary_pos_embed
 
-from comfy.utils import ProgressBar
-
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
 def get_resize_crop_region_for_grid(src, tgt_width, tgt_height):
@@ -538,7 +536,6 @@ class CogVideoXPipeline(DiffusionPipeline):
                     
                     if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                         progress_bar.update()
-                        comfy_pbar.update(1)
                     # ==========================================
                 else:
                     
@@ -581,7 +578,6 @@ class CogVideoXPipeline(DiffusionPipeline):
 
                     if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                         progress_bar.update()
-                        comfy_pbar.update(1)
             
 
         # Offload all models
